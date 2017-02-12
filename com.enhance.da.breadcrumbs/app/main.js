@@ -1,6 +1,4 @@
-var currentAddress;
-var currentLocality;
-var isPositionAnnounced;
+var currentLocation = {};
 
 /**
  * The callback to prepare a segment for play.
@@ -13,15 +11,11 @@ da.segment.onpreprocess = function (trigger, args) {
     // Check the trigger type.
     if(trigger === 'launchRule' || trigger === 'voice') {
         console.log('=== trigger type is ', trigger);
-        // Fetch the segment configuration options from the server.
-        getSegmentConfig().then(function (result) {
-            isPositionAnnounced {
-                // Get current address and locality data.
-                // That's why we need a global variable!! (currentAddress, currentLocality)
-
-            }
-        })
-        da.startSegment(null, null);
+        getCurrentPosition().then((result) => {
+            currentLocation.longitude = result.longitude;
+            currentLocation.latitude = result.latitude;
+            da.startSegment(null, null);
+        });
     } else {
         console.log('=== cannot find correct trigger type ===');
     }
