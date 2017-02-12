@@ -1,0 +1,19 @@
+{
+  "name": "Enhance",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "builddb": "psql -f init.sql",
+    "dropdb": "psql -c drop database enhance",
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "pg": "^6.1.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.2"
+  },
+  "devDependencies": {
+  },
+  "author": "Efe Surekli",
+  "license": "MIT"
+}
