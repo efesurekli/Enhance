@@ -4,6 +4,7 @@ const User = require('./User.js');
 
 
 const Message = db.define('messages', {
+  username: Sequelize.STRING,
   text: Sequelize.STRING,
   location: Sequelize.GEOGRAPHY,
   radius: Sequelize.INTEGER,

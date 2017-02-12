@@ -62,12 +62,14 @@ for (let i = 0; i < messageNumber; i++) {
   let text = faker.lorem.sentence();
   let userId = generateRandomId(userNumber);
   let updatedAt = generateRandomPast();
+  let username = faker.internet.userName();
   let location = {
     type: 'Point',
     coordinates: generateRandomCoordinates(latitude1, latitude2, longitude1, longitude2),
   };
   let recipients = [1, 2, 3, 4];
   messages.push({
+    username,
     userId,
     text,
     location,
