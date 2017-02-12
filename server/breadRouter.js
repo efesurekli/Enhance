@@ -21,16 +21,16 @@ breadRouter.get('/nearbyMessage/:lat/:lng', function (req, res) { //can come fro
   const radius = 100; // 100 meters
   const location = { latitude: req.params.lat, longitude: req.params.lng };
   getMessages(location, radius).then((messages) => {
-    // res.send(messages.slice(0,1));
-    // console.log(messages);
+    res.send(messages.slice(0,1));
+    console.log(messages);
     // test case with message in curr location
-    var sample = {
-      messages: [{
-        username: "Susan",
-        message: "Hi there"
-      }]
-    }
-    res.send(sample);
+    // var sample = {
+    //   messages: [{
+    //     username: "Susan",
+    //     message: "Hi there"
+    //   }]
+    // }
+    // res.send(sample);
   });
   // location.user = req.user.userID;
   // location.location = req.body.location;
