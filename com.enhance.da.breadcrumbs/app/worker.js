@@ -6,25 +6,36 @@
  */
 da.segment.onstart = function (trigger, args) {
     console.log('worker started');
-    da.stopWorker();
-    // Get the current address (locality)
-    // getCurrentLocationData().then(function (address, locality) {
-    //     if (address !== 'error') {
-    //         var storage = new da.Storage();
-    //         if (storage.getItem('locality') !== locality) {
-    //             // If current locality has been changed, update the current locality stored locally request to start the segment.
-    //             storage.setItem('locality', locality);
-    //             da.requestStartSegment('full', {
-    //                 cueVoice: 'launchRulesAnnounce',
-    //                 cueVoiceArgs: ['worker'],
-    //                 args: locality
-    //             });
-    //         } else {
-    //             // if the current locality is not changed, stop the worker itself
-    //             da.stopWorker();
-    //         }
-    //     } else {
-    //         da.stopWorker();
-    //     }
-    // });
+    var callbacks = {
+        onsuccess: function (result) {
+            console.log('getCurrentPosition success.', result);
+            fetch('/users.html', {
+                method: 'GET',
+                body: {
+                    coordinates: [result.longitude, result.latitude]
+                }
+            })
+            .then(function(response) {
+                // Figure out how this response will be structured
+                if (response.message) {
+                    // Play a ding sound
+                    // Store message to local storage if it is not already there
+                    // Remove messages that are no longer in the response object
+                    da.stopWorker();
+                } else {
+                    // Remove all messages from local storage if there are any
+                }
+            })
+        },
+        onerror: function (error) {
+            console.log('getCurrentPosition fail.' + error.message);
+            da.stopWorker();
+        }
+    };
+    var option = {
+        timeout: 30000,
+        enablehighaccuracy: true
+    };
+    var geo = new da.Geolocation();
+    geo.getCurrentPosition(callbacks, option);
 };

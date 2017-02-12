@@ -15,20 +15,5 @@ da.segment.onpreprocess = function (trigger, args) {
  */
 da.segment.onstart = function (trigger, args) {
     console.log('onstart', { trigger: trigger, args: args });
-    var callbacks = {
-        onsuccess: function (result) {
-            console.log('getCurrentPosition success.', result);
-            da.stopSegment();
-        },
-        onerror: function (error) {
-            console.log('getCurrentPosition fail.' + error.message);
-            da.stopSegment();
-        }
-    };
-    var option = {
-        timeout: 30000,
-        enablehighaccuracy: true
-    };
-    var geo = new da.Geolocation();
-    geo.getCurrentPosition(callbacks, option);
+    da.stopSegment();
 };
