@@ -84,3 +84,20 @@ var convertTimeFormat = function (hours, minutes) {
     }
     return hours + ' ' + minutes + ' ' + ampm;
 };
+
+/**
+ * Reads list of messages.
+ * @param  {array} messages
+ * @return {object} Promise
+ */
+var readCurrentLocationMessages = function (messages) {
+    var messagesIntro = 'Here are the messages for your current location.';
+    var messagesBody = '';
+    var messagesEnd = 'That is all!';
+
+    messages.forEach((message, index) => {
+        `${messagesBody}Message ${index + 1}, From ${message.user}, ${message.message}.\n`
+    });
+
+    return speak(`${messagesIntro}, ${messagesBody}, ${messagesEnd}`);
+};

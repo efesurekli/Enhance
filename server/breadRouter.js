@@ -23,7 +23,12 @@ breadRouter.post('/nearbyMessage', function (req, res) { //can come from device 
   //send this location object to efe
   //bind any response to res and send
   response = {
-    message: "Hard coded message" // single closest message
+    messages: [
+      {
+        "user": "A test user",
+        "message": "Hard coded message"
+      }
+    ] // single closest message
   }
   res.status(200).send(response);
 });
