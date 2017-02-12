@@ -60,11 +60,13 @@ class HomePage extends React.Component {
   handleMessageSubmit(message, recipientIDs = []) {
     const userID = 0; // TODO get real user ID
     // TODO axios requests
-    const currLoc = this.state.locations[this.state.locations.length - 1].position;
+    const currLoc = this.state.locations[this.state.locations.length - 1]["position"];
+    // console.log('EX LOC: ' + JSON.stringify(this.state.locations[this.state.locations.length - 1]));
+    // console.log(`TXT: ${message}, lat: ${currLoc.lat()}, lng: ${currLoc.lng()}`)
     axios.post('/messages', {
       location: {
-        latitude: currLoc.lat,
-        longitude: currLoc.lng,
+        latitude: currLoc.lat(),
+        longitude: currLoc.lng(),
       },
       text: message,
       username: 'Efe'
