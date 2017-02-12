@@ -4,6 +4,7 @@ const path = require('path');
 var passport = require('passport');
 var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
+const { getMessages, insertMessage } = require('./database/utils.js');
 
 const db = require('./database/db.js')
 const Message = require('./database/Message.js')
@@ -15,47 +16,37 @@ passport.use(new LocalStrategy(
 ));
 
 // changed get->post
-breadRouter.post('/nearbyMessage', function (req, res) { //can come from device or website, returns nearby messages
-  var location = {};
-  var response;
+breadRouter.get('/nearbyMessage/:lat/:lng', function (req, res) { //can come from device or website, returns nearby messages
+  const userID = 1;
+  const radius = 100; // 100 meters
+  const location = { latitude: req.params.lat, longitude: req.params.lng };
+  getMessages(userID, location, radius).then((messages) => {
+    res.send(messages.slice(0,1));
+  });
   // location.user = req.user.userID;
   // location.location = req.body.location;
   //send this location object to efe
   //bind any response to res and send
-  response = {
-    message: "Hard coded message" // single closest message
-  }
-  res.status(200).send(response);
 });
 
 breadRouter.post('/messages', function (req, res) { //mosts to messages
   var message = {};
-  // message.userID = req.user.userID;
   message.location = req.body.location;
-  message.message = req.body.message;
-  message.recipients = req.body.recipients;
-  message.radius = req.body.radius;
-
-  console.log(message);
-
-  Message.create({
-      text: message.message,
-      location: message.location,
-      radius: message.radius, 
-      recipients: message.recipients
-  }).then(function(data) {
-    console.log(data.get({
-      plain: true
-    }))
-    res.sendStatus(200);
+  message.text = req.body.text;
+  insertMessage(message).then((mes) => {
+    console.log(mes);
+    res.send(200)
   });
-
-  //send this message to database;
-    //on successful post, send confirmation
 });
 
-breadRouter.get('/messages', function (req, res) {  //returns all messages by user
-  var userID = req.user.userID;
+breadRouter.get('/messages/:lat/:lng', function (req, res) {  //returns all messages by user
+  // const userID = req.user.userID;
+  const location = { latitude: req.params.lat, longitude: req.params.lng };
+  const rad = 5000; //can set it as a setting
+  const userID = 1;
+  getMessages(userID, location, rad).then(messages => {
+    res.send(messages);
+  });
   //query database for all messages regarding user
   //put result in array
   //send back to client

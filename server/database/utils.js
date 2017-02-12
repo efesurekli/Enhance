@@ -51,10 +51,10 @@ const overriddenBulkCreate = function overriddenBulkCreate(model, entries) {
 // categoryId: integer
 // location: { latitude (float), longitude (float) }
 // radius: float (meters) (ex: 100.0 is 100 meters)
-const getMessages = function getMessages(userId, location, category, radius) {
+const getMessages = function getMessages(userId, location, radius) {
   return new Promise((resolve, reject) => {
-    db.query(querymessages(userId, location, category, radius),
-      { type: db.QueryTypes.SELECT, model: message })
+    db.query(stdWithinquery('messages', 'location', location.latitude, location.longitude, radius),
+      { type: db.QueryTypes.SELECT, model: Message })
         .then((results) => {
           resolve(results.map((result) => {
             const message = result.dataValues;
@@ -93,16 +93,23 @@ const insertUser = function insertUser(user, settings) {
 // { title, description: string;
 // userId: integer; location: { latitude (float), longitude (float) } }
 const insertMessage = function insertmessage(message) {
-  const { text, location, userId, radius } = message;
+  const { text, location } = message;
   return new Promise((resolve, reject) => {
-    message.create({
+    Message.create({
       text,
       location: { type: 'Point', coordinates: [location.latitude, location.longitude] },
-      userId,
-      radius
     }).then(message => {
-      // any hooks 
+      resolve(message);
     }).catch(reject);
+  });
+};
 
-const
+module.exports = {
+  getMessages,
+  insertMessage
+};
+
+
+
+
 

@@ -1,6 +1,5 @@
 const faker = require('faker');
-// const _ = require('lodash');
-const db = require('../db/db.js');
+const db = require('./db.js');
 const User = require('./User.js');
 const Message = require('./Message.js');
 
@@ -53,7 +52,6 @@ const generateRandomCoordinates = function generateRandomCoordinates(lat1, lat2,
 for (let i = 0; i < userNumber; i++) {
   let username = faker.internet.userName();
   let radius =  Math.floor(Math.random() * 1500);
-
   users.push({
     username,
     radius
@@ -61,39 +59,21 @@ for (let i = 0; i < userNumber; i++) {
 }
 
 for (let i = 0; i < messageNumber; i++) {
-  let description = faker.lorem.sentence();
-  let title = faker.random.word();
-  let voteCount = 0;
+  let text = faker.lorem.sentence();
   let userId = generateRandomId(userNumber);
-  let categoryId = generateCategoryId();
   let updatedAt = generateRandomPast();
   let location = {
     type: 'Point',
     coordinates: generateRandomCoordinates(latitude1, latitude2, longitude1, longitude2),
   };
+  let recipients = [1, 2, 3, 4];
   messages.push({
     userId,
-    description,
+    text,
     location,
-    title,
-    voteCount,
-    categoryId,
-    updatedAt,
+    recipients
   });
 };
-
-for (let i = 1; i < users.length; i++) {
-  let randomCategoryId = generateCategoryId();
-  subscriptions.push({
-    userId: i,
-    categoryId: randomCategoryId,
-  });
-  (randomCategoryId > 1) ? randomCategoryId -= 1 : randomCategoryId += 1;
-  subscriptions.push({
-    userId: i,
-    categoryId: randomCategoryId,
-  });
-}
 
 
 db.sync({ force: true })
