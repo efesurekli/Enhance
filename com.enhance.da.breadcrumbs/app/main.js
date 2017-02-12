@@ -1,11 +1,30 @@
+var currentAddress;
+var currentLocality;
+var isPositionAnnounced;
+
 /**
  * The callback to prepare a segment for play.
  * @param  {string} trigger The trigger type of a segment.
  * @param  {object} args    The input arguments.
  */
 da.segment.onpreprocess = function (trigger, args) {
+    console.log('=== onpreprocess called ===');
     console.log('onpreprocess', { trigger: trigger, args: args });
-    da.startSegment(null, null);
+    // Check the trigger type.
+    if(trigger === 'launchRule' || trigger === 'voice') {
+        console.log('=== trigger type is ', trigger);
+        // Fetch the segment configuration options from the server.
+        getSegmentConfig().then(function (result) {
+            isPositionAnnounced {
+                // Get current address and locality data.
+                // That's why we need a global variable!! (currentAddress, currentLocality)
+
+            }
+        })
+        da.startSegment(null, null);
+    } else {
+        console.log('=== cannot find correct trigger type ===');
+    }
 };
 
 /**
