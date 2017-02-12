@@ -27,6 +27,7 @@ breadRouter.get('/nearbyMessage/:lat/:lng', function (req, res) { //can come fro
   // location.location = req.body.location;
   //send this location object to efe
   //bind any response to res and send
+
 });
 
 breadRouter.post('/messages', function (req, res) { //mosts to messages
