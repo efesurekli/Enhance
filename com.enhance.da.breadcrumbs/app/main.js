@@ -16,7 +16,7 @@ da.segment.onpreprocess = function (trigger, args) {
                 console.log('current position: ', result);
                 // Store fetched result to global messagesArr
                 $.ajax({
-                    url: `http://10.3.4.243:3000/nearbyMessage/${result.latitude}/${result.longitude}`,
+                    url: `http://144.217.91.64:3000/nearbyMessage/${result.latitude}/${result.longitude}`,
                     xhr: function () { return da.getXhr(); },
                     success: function (data, textStatus, jqXHR) {
                         messagesArr = data.messages;
