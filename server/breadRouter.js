@@ -17,10 +17,20 @@ passport.use(new LocalStrategy(
 
 // changed get->post
 breadRouter.get('/nearbyMessage/:lat/:lng', function (req, res) { //can come from device or website, returns nearby messages
+  console.log('req here',req.params);
   const radius = 100; // 100 meters
   const location = { latitude: req.params.lat, longitude: req.params.lng };
   getMessages(location, radius).then((messages) => {
-    res.send(messages.slice(0,1));
+    // res.send(messages.slice(0,1));
+    // console.log(messages);
+    // test case with message in curr location
+    var sample = {
+      messages: [{
+        username: "Susan",
+        message: "Hi there"
+      }]
+    }
+    res.send(sample);
   });
   // location.user = req.user.userID;
   // location.location = req.body.location;

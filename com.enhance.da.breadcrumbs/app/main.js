@@ -11,20 +11,22 @@ da.segment.onpreprocess = function (trigger, args) {
     // Check the trigger type.
     if(trigger === 'launchRule' || trigger === 'voice') {
         console.log('=== trigger type is ', trigger);
-        getCurrentPosition().then((result) => {
-            console.log('current position: ', result);
-            // Store fetched result to global messagesArr
-            fetch('http://localhost:3000/nearbyMessage', {
-                method: 'POST',
-                body: {
-                    coordinates: [result.longitude, result.latitude]
-                }
-            })
-            .then(response => response.json())
-            .then(function(json) {
-                console.log('result from server: ', json);
-                messagesArr = json.messages;
-                da.startSegment(null, null);
+        getSegmentConfig().then(function (r) {
+            getCurrentPosition().then((result) => {
+                console.log('current position: ', result);
+                // Store fetched result to global messagesArr
+                $.ajax({
+                    url: `http://10.3.4.243:3000/nearbyMessage/${result.latitude}/${result.longitude}`,
+                    xhr: function () { return da.getXhr(); },
+                    success: function (data, textStatus, jqXHR) {
+                        messagesArr = data.messages;
+                        da.startSegment(null, null);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error');
+                    }
+
+                });
             });
         });
     } else {
