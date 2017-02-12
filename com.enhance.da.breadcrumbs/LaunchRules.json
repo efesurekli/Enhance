@@ -6,5 +6,30 @@
         "sample hello"
       ]
     }
+  ],
+  "rules": [
+    {
+      "comment": "Send location data to API",
+      "argumentObject": {
+        "cueVoice": "launchRulesAnnounce",
+        "cueVoiceArgs": ["launch rules"],
+        "args": "start"
+      },
+      "trigger": {
+        "activityChange": [
+          {
+            "beforeActivity": [
+              "STAYING"
+            ],
+            "afterActivity": [
+              "RUNNING",
+              "WALKING",
+              "GETTING_ON_VEHICLE",
+              "RIDING_BICYCLE"
+            ]
+          }
+        ]
+      }
+    }
   ]
 }

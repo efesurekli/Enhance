@@ -14,7 +14,6 @@ da.segment.onpreprocess = function (trigger, args) {
  * @param  {object} args    The input arguments.
  */
 da.segment.onstart = function (trigger, args) {
-
     console.log('onstart', { trigger: trigger, args: args });
     var callbacks = {
         onsuccess: function (result) {
