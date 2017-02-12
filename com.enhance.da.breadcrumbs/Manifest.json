@@ -1,13 +1,13 @@
 {
-  "package": "com.example.sony.da.hello",
+  "package": "com.enhance.da.breadcrumbs",
   "manifestVersion": 1,
-  "name": "HelloWorld",
+  "name": "BreadCrumbs",
   "author": {
-    "name": "Sony"
+    "name": "Enhance"
   },
   "version": 1,
   "versionName": "1.0.0",
-  "description": "Sony Corporation\nSpeaks 'Hello World!'",
+  "description": "BreadCrumbs",
   "background": {
     "pollingInterval": 1000
   }
