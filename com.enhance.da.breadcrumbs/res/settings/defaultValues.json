@@ -1,6 +1,6 @@
 {
   "defaultValues": {
-    "scope": "com.example.sony.da.hello",
+    "scope": "com.enhance.da.breadcrumbs",
     "version": "1.0",
     "settings": {}
   }
