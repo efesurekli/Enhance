@@ -1,4 +1,14 @@
+npm i
+
 brew install postgres
+brew install postgis
+
+psql postgres
+CREATE DATABASE YOUR_USERNAME;
+
+in server/
+npm run builddb
+npm run populatedb
 
 brew services start postgres
 
