@@ -5,6 +5,8 @@ var passport = require('passport');
 var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 
+const db = require('./database/db.js')
+const Message = require('./database/Message.js')
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -24,10 +26,26 @@ breadRouter.get('/nearbyMessages', function (req, res) { //can come from device 
 
 breadRouter.post('/messages', function (req, res) { //mosts to messages
   var message = {};
-  message.userID = req.user.userID;
+  // message.userID = req.user.userID;
   message.location = req.body.location;
   message.message = req.body.message;
   message.recipients = req.body.recipients;
+  message.radius = req.body.radius;
+
+  console.log(message);
+
+  Message.create({
+      text: message.message,
+      location: message.location,
+      radius: message.radius, 
+      recipients: message.recipients
+  }).then(function(data) {
+    console.log(data.get({
+      plain: true
+    }))
+    res.sendStatus(200);
+  });
+
   //send this message to database;
     //on successful post, send confirmation
 });

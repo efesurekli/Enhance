@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
-const db = require('../db/db.js');
+const db = require('./db.js');
 // const Category = require('./Category.js');
 
 const User = db.define('user', {
@@ -31,6 +31,11 @@ const User = db.define('user', {
     type: Sequelize.INTEGER,
   },
 });
+
+// User.sync({force: true}).then(function () {
+//   // Table created
+//   return User.create();
+// });
 
 // Hooks:
 
