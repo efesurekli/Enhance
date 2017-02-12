@@ -2,7 +2,7 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import Map from './Map';
+import BreadcrumbMap from './BreadcrumbMap';
 // import { postFixture } from '../fixtures/index.js';
 
 class HomePage extends React.Component {
@@ -13,6 +13,10 @@ class HomePage extends React.Component {
     // Render default dummy post
     const latitude = 37.783591;
     const longitude = -122.408949;
+    const dummyLoc = Array(50).fill(0).map(_ => ({
+      lat: latitude + (Math.random() / 20) - 0.03,
+      lng: longitude + (Math.random() / 20) - 0.03
+    }));
     return (
       <div className='stretch'>
           <AppBar
@@ -22,11 +26,8 @@ class HomePage extends React.Component {
           />
           {/*<h1>test</h1>*/}
           <div className='stretch'>
-            <Map
-            locations={Array(50).fill(0).map(_ => ({
-              lat: latitude + (Math.random() / 20) - 0.03,
-              lng: longitude + (Math.random() / 20) - 0.03
-            }))}
+            <BreadcrumbMap
+            locations={[]}
             currentLocation={{
               longitude,
               latitude,
@@ -34,7 +35,6 @@ class HomePage extends React.Component {
               zipcode: ''
             }} />
           </div>
-          
       </div>
     );
   }
