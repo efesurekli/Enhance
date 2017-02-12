@@ -28,6 +28,11 @@ da.segment.onpreprocess = function (trigger, args) {
  */
 da.segment.onstart = function (trigger, args) {
     console.log('onstart', { trigger: trigger, args: args });
+
+    // Only triggered by voice command for now
+    if ( trigger === 'voice') {
+
+    }
     var callbacks = {
         onsuccess: function (result) {
             console.log('getCurrentPosition success.', result);
