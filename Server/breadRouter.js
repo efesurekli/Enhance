@@ -14,14 +14,18 @@ passport.use(new LocalStrategy(
   }
 ));
 
-breadRouter.get('/nearbyMessages', function (req, res) { //can come from device or website, returns nearby messages
+// changed get->post
+breadRouter.post('/nearbyMessage', function (req, res) { //can come from device or website, returns nearby messages
   var location = {};
-  var responses;
-  location.user = req.user.userID;
-  location.location = req.body.location;
+  var response;
+  // location.user = req.user.userID;
+  // location.location = req.body.location;
   //send this location object to efe
-  //bind any responses to res and send
-  res.status(200).send(res);
+  //bind any response to res and send
+  response = {
+    message: "Hard coded message" // single closest message
+  }
+  res.status(200).send(response);
 });
 
 breadRouter.post('/messages', function (req, res) { //mosts to messages

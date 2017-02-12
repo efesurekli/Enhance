@@ -9,6 +9,6 @@
   "versionName": "1.0.0",
   "description": "BreadCrumbs",
   "background": {
-    "pollingInterval": 1000
+    "pollingInterval": 300
   }
 }

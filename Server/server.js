@@ -1,4 +1,5 @@
 var express = require('express');
+const cors = require('cors');
 var app = express();
 const path = require('path');
 var bodyParser = require('body-parser');
