@@ -1,0 +1,9 @@
+{
+  "defaultValues": {
+    "scope": "com.enhance.da.breadcrumbs",
+    "version": "1.0",
+    "settings": {
+      "isPositionAnnounced": true
+    }
+  }
+}
