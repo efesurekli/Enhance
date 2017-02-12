@@ -1,11 +1,11 @@
 {
   "schema": {
-    "scope": "com.example.sony.da.hello",
+    "scope": "com.enhance.da.breadcrumbs",
     "version": "1.0",
     "settings": [
       {
         "key": "description",
-        "displayName": "Provides a minimal segment, which speaks 'Hello World!'\n\n<Voice commands>\nThis segment is limited to be started up with the following voice commands.\n - Start sample hello\n - Check sample hello\n\n<Contact us>\nhttps://www.sony.com",
+        "displayName": "Allows a user to read location based messages.\n\n<Voice commands>\nThis segment is limited to be started up with the following voice command.\n - Open geo messages",
         "layout": "description"
       }
     ]

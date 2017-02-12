@@ -17,10 +17,9 @@ passport.use(new LocalStrategy(
 
 // changed get->post
 breadRouter.get('/nearbyMessage/:lat/:lng', function (req, res) { //can come from device or website, returns nearby messages
-  const userID = 1;
   const radius = 100; // 100 meters
   const location = { latitude: req.params.lat, longitude: req.params.lng };
-  getMessages(userID, location, radius).then((messages) => {
+  getMessages(location, radius).then((messages) => {
     res.send(messages.slice(0,1));
   });
   // location.user = req.user.userID;
@@ -34,6 +33,7 @@ breadRouter.post('/messages', function (req, res) { //mosts to messages
   var message = {};
   message.location = req.body.location;
   message.text = req.body.text;
+  message.username = req.body.username;
   insertMessage(message).then((mes) => {
     console.log(mes);
     res.send(200)
@@ -44,8 +44,7 @@ breadRouter.get('/messages/:lat/:lng', function (req, res) {  //returns all mess
   // const userID = req.user.userID;
   const location = { latitude: req.params.lat, longitude: req.params.lng };
   const rad = 5000; //can set it as a setting
-  const userID = 1;
-  getMessages(userID, location, rad).then(messages => {
+  getMessages(location, rad).then(messages => {
     res.send(messages);
   });
   //query database for all messages regarding user
