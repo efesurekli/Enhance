@@ -1,4 +1,5 @@
 var express = require('express');
+const cors = require('cors');
 var app = express();
 const path = require('path');
 var bodyParser = require('body-parser');
@@ -12,7 +13,7 @@ const knex = Knex({
         host: '127.0.0.1',
         user: 'postgres',
         password: '',
-        database: 'travis_ci_test'
+        database: 'breadcrumbs'
     }
 });
 const store = new KnexSessionStore({
@@ -20,7 +21,7 @@ const store = new KnexSessionStore({
     tablename: 'sessions' // optional. Defaults to 'sessions'
 });
 
-
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(session({
