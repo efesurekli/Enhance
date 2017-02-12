@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-// const url = 'localhost:32768';
+// const url = 'localhost:5432';
 // const url = 'http://172.17.0.1:32768';
 
 const url = 'localhost'
