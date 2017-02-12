@@ -16,11 +16,11 @@ const url = 'localhost'
 // to access psql you need a valid user / db to refer to:
 // psql -U (will create a db with the username, and it would do the job)
 // to connect to the database do:
-// psql \c pharos_db pharos_admin
+// psql \c enhance_db enhance_admin
 
 // environment variables will change based on deployment methods.
-// user: pharos_admin
-// pass: aware
+// user: enhance_admin
+// pass: 123456
 const db = new Sequelize('enhance', 'enhance_admin', '123456', {
   host: url,
   dialect: 'postgres',

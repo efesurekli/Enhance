@@ -1,12 +1,7 @@
-
 const db = require('./db.js');
 const Promise = require('bluebird');
-const User = require('../models/User.js');
-const message = require('../models/message.js');
-const Vote = require('../models/Vote.js');
-const Category = require('../models/Category.js');
-const Subscription = require('../models/Subscription.js');
-const bcrypt = require('bcrypt');
+const User = require('./User.js');
+const Message = require('./Message.js');
 
 
 // Helper functions for db queries:
@@ -78,11 +73,7 @@ const insertUser = function insertUser(user, settings) {
   return new Promise((resolve, reject) => {
     User.create({
       username,
-      firstName,
-      lastName,
-      password,
       radius,
-      email,
     }, { individualHooks: true })
     .then((user) => {
       return Category.findAll({
@@ -102,24 +93,16 @@ const insertUser = function insertUser(user, settings) {
 // { title, description: string;
 // userId: integer; location: { latitude (float), longitude (float) } }
 const insertMessage = function insertmessage(message) {
-  const { title, location, description, userId, categoryId } = message;
+  const { text, location, userId, radius } = message;
   return new Promise((resolve, reject) => {
     message.create({
-      title,
+      text,
       location: { type: 'Point', coordinates: [location.latitude, location.longitude] },
-      description,
-      voteCount: 0,
       userId,
-      categoryId,
-    }).then((message) => {
-      Subscription.findAll({
-        attributes: ['userId'],
-        where: {
-          categoryId: message.categoryId,
-        },
-      }).then(userIds => resolve(userIds.map(uid => uid.dataValues.userId), message))
-        .catch(reject);
+      radius
+    }).then(message => {
+      // any hooks 
     }).catch(reject);
-  });
-};
+
+const
 
