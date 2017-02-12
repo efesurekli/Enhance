@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
+import { GoogleMap, Marker, withGoogleMap, InfoWindow } from 'react-google-maps';
 import AddLocationDialog from './AddLocationDialog';
 
 const ShowMap = withGoogleMap(props => (
@@ -15,8 +15,16 @@ const ShowMap = withGoogleMap(props => (
     onClick={props.onMapClick}>
     {props.markers.map((marker, index) => (
       <Marker key={index}
-        {...marker}
-      />
+        onClick={() => props.onMarkerClick(marker)}
+        {...marker}>
+        {marker.showInfo && 
+          (<InfoWindow onCloseClick={() => props.onMarkerClose(marker)}>
+            <div>
+              <h5>{marker.username+':'}</h5>
+              <p>{marker.message}</p>
+            </div>
+          </InfoWindow>)}
+      </Marker>
     ))}
   </GoogleMap>
 ));
@@ -24,61 +32,10 @@ const ShowMap = withGoogleMap(props => (
 export default class BreadcrumbMap extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      markers: this.initMarkers(),
-      messageInputOpen: false
-    }
   }
 
   handleMapLoad(map) {
     this.mapComponent = map;
-  }
-
-  initMarkers() {
-    const markers = this.props.locations.map((location) => {
-      const marker = {
-        position: {
-          lat: Number(location.lat),
-          lng: Number(location.lng)
-        },
-        defaultAnimation: 2
-      };
-      return marker;
-    });
-    return markers;
-  }
-
-  handleMapClick(event) {
-    const nextMarkers = [
-      ...this.state.markers,
-      {
-        position: event.latLng,
-        defaultAnimation: 2,
-        key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
-      },
-    ];
-
-    this.setState({ markers: nextMarkers, messageInputOpen: true });
-
-    if (nextMarkers.length === 3) {
-      this.props.toast(
-        `Right click on the marker to remove it`,
-        `Also check the code!`
-      );
-    }
-  }
-
-  handleMessageCancel() {
-    let markers = this.state.markers.map(x => x);
-    markers.pop();
-    this.setState({ messageInputOpen: false, markers });
-  }
-
-  handleMessageSubmit(message, recipientIDs = []) {
-    const userID = 0; // TODO get real user ID
-    // TODO axios requests
-    console.log('Submitting location message: ' + message);
-    this.setState({ messageInputOpen: false });
   }
 
   render() {
@@ -92,14 +49,16 @@ export default class BreadcrumbMap extends React.Component {
             <div style={{ height: '100%' }} />
           }
           onMapLoad={this.handleMapLoad.bind(this)}
-          onMapClick={this.handleMapClick.bind(this)}
-          markers={this.state.markers}
-          currentLocation={this.props.currentLocation}
+          onMapClick={ this.props.onMapClick }
+          markers={ this.props.locations }
+          currentLocation={ this.props.currentLocation }
+          onMarkerClose={ this.props.onMarkerClose }
+          onMarkerClick={ this.props.onMarkerClick }
         />
         <AddLocationDialog
-          open={this.state.messageInputOpen}
-          onClose={this.handleMessageCancel.bind(this)}
-          onSubmit={this.handleMessageSubmit.bind(this)} />
+          open={ this.props.openDialog }
+          onClose={ this.props.onMessageCancel }
+          onSubmit={ this.props.onMessageSubmit } />
       </div>
     );
   }
