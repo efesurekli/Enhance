@@ -1,14 +1,16 @@
-Breadcrumbs Segment
+Sample Hello Segment
 =======================
 
-[TODO]: Fill this out.
+This segment provides a minimal segment, which speaks "Hello World!".
 
 Features
 -------------
-[TODO]: Fill this out.
-- 
+- Launch by voice trigger
+- Speak "Hello World!"
 
 Use API
 -------------
-[TODO]: Fill this out.
-- 
+- startSegment [da]
+- stopSegment [da]
+- getInstance [da.SpeechSynthesis]
+- speak [da.SpeechSynthesis]

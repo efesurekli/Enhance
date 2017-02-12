@@ -1,14 +1,11 @@
 {
-  "package": "com.enhance.da.breadcrumbs",
+  "package": "com.example.sony.da.hello",
   "manifestVersion": 1,
-  "name": "Breadcrumbs",
+  "name": "HelloWorld",
   "author": {
     "name": "Sony"
   },
   "version": 1,
   "versionName": "1.0.0",
-  "description": "Sends geolocation data to an API, listens for new message alerts based on current location, and lets user listen to their geolocation-based messages."
-  // "background": {
-  //   "pollingInterval": 900
-  // }
+  "description": "Sony Corporation\nSpeaks 'Hello World!'"
 }

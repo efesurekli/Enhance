@@ -41,7 +41,7 @@ da.segment.onpreprocess = function (trigger, args) {
 da.segment.onstart = function (trigger, args) {
     console.log('onstart', { trigger: trigger, args: args });
     var synthesis = da.SpeechSynthesis.getInstance();
-    synthesis.speak('Hello World !', {
+    synthesis.speak('YO World !, What UP?', {
         onstart: function () {
             console.log('speak start');
         },
