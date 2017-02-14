@@ -96,7 +96,7 @@ var readCurrentLocationMessages = function (messages) {
     var messagesEnd = 'That is all!';
     console.log('messages in util', messages);
     messages.forEach((message, index) => {
-        messagesBody += `${messagesBody}Message ${index + 1}, From ${message.username}, ${message.message}.\n`
+        messagesBody += `Message ${index + 1}, From ${message.username}, ${message.text}.\n`
     });
 
     return speak(`${messagesIntro}, ${messagesBody}, ${messagesEnd}`);

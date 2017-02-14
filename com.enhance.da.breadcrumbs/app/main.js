@@ -1,4 +1,4 @@
-var messagesArr;
+var messagesArr = [];
 
 /**
  * The callback to prepare a segment for play.
@@ -19,7 +19,8 @@ da.segment.onpreprocess = function (trigger, args) {
                     url: `http://144.217.91.64:3000/nearbyMessage/${result.latitude}/${result.longitude}`,
                     xhr: function () { return da.getXhr(); },
                     success: function (data, textStatus, jqXHR) {
-                        messagesArr = data.messages;
+                        console.log('data from api:', data);
+                        messagesArr = data;
                         da.startSegment(null, null);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -44,6 +45,7 @@ da.segment.onstart = function (trigger, args) {
     // Only triggered by voice command for now
     // if ( trigger === 'voice') {
         // Read message if message exists
+        console.log('messagesArr:',messagesArr);
         if ( messagesArr.length !== 0 ) {
             readCurrentLocationMessages(messagesArr)
             .then(() => {
